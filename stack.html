@@ -1,9 +1,38 @@
-<html>
-<body>
-<h1>starting page for stack overflow interesting searches</h1>
-<ul>
-<li><a href="http://stackoverflow.com/search?tab=newest&q=[c%23]%20answers%3a0%20score%3a2..%20lastactive%3a2014-03-01..2014-03-16%20closed%3a0">Unanswered open C# questions in the 15 days range starting 4 days earlier</a></li>
-<li><a href="http://stackoverflow.com/search?tab=newest&q=[automapper]%20answers%3a0%20score%3a0..%20closed%3a0">Open Automapper questions without answers</a></li>
-<li><a href="http://stackoverflow.com/search?tab=newest&q=[nsubstitute]%20answers%3a0%20score%3a0..%20closed%3a0">Open NSubstitute questions without answers</a></li>
-<li><a href="http://stackoverflow.com/search?q=[castle]+OR+[castle-dynamicproxy]+OR+[castle-windsor]+answers%3A0+score%3A0..+closed%3A0">Open Castle questions without answers</a></li>
-</ul>
+<!doctype html>
+<html ng-app>
+	<head>
+		<title>Stack surveillance</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    	<script src="stackSurveillance.js"></script>
+		<link rel="stylesheet" href="style.css" type="text/css"></link>
+	</head>
+
+	<body>
+		<div ng-controller="stackSurveillance">
+		
+		<div>
+		<button type="button" data-ng-click="refresh()">ManualRefresh</button>
+		<button type="button" data-ng-click="start()">StartAutoRefresh</button>
+		<button type="button" data-ng-click="stop()">StopAutoRefresh</button>
+		</div>
+		
+		<div class="queries">
+		<div class="query" ng-repeat="query in queries">
+			<span>{{searches[$index].title}}</span>
+			<ul class="questions">
+			<li class="question" ng-repeat="item in query">
+				<a href="{{item.link}}">{{item.title}}</a>
+				<ul class="tags">
+					<li class="tag" ng-repeat="tag in item.tags">
+						{{tag}}
+					</li>
+				</ul>
+			</li>
+			</ul>
+		</div>
+		</div>
+		
+		
+		</div>
+	</body>
+</html>
