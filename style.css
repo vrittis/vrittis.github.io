@@ -1,0 +1,43 @@
+div.queries
+{
+	background: #eee;
+}
+
+div.query
+{
+	width: 33%;
+	float: left;
+	padding: 5px;
+}
+
+div.query span
+{
+	font-weight: bolder;
+}
+
+div.query ul.questions
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+div.query ul.questions li.question
+{
+	margin-top: 10px;
+	clear: both;
+	border: 1px solid #ddd;
+}
+
+div.query ul.tags
+{
+	font-size: 10px;
+}
+
+div.query ul.tags li.tag
+{
+	float: right;
+	padding: 1px;
+	background: #333;
+	color: #eee;
+}
