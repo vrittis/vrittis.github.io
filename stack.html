@@ -3,32 +3,50 @@
 	<head>
 		<title>Stack surveillance</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+		<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
     	<script src="stackSurveillance.js"></script>
 		<link rel="stylesheet" href="style.css" type="text/css"></link>
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css" type="text/css"></link>
 	</head>
 
 	<body>
-		<div ng-controller="stackSurveillance">
+	<header id="overview" class="bs-header text-center">
+        <div class="container">
+            <h1>
+                Stack Surveillance
+            </h1>
+
+            <p>Keeping an eye on <a href="http://stackoverflow.com">Stack Overflow</a></p>
+			<!--<div class="btn-group-vertical pull-right"><button type="button" class="btn btn-primary" data-ng-click="refresh()">ManualRefresh</button>
+		<button type="button" class="btn btn-success" data-ng-click="start()">StartAutoRefresh</button>
+		<button type="button" class="btn btn-warning" data-ng-click="stop()">StopAutoRefresh</button></div>-->
+          
+        </div>
+       
+    </header>
+		<div ng-controller="stackSurveillance" class="container-fluid">
 		
-		<div>
-		<button type="button" data-ng-click="refresh()">ManualRefresh</button>
-		<button type="button" data-ng-click="start()">StartAutoRefresh</button>
-		<button type="button" data-ng-click="stop()">StopAutoRefresh</button>
-		</div>
+	
 		
-		<div class="queries">
-		<div class="query" ng-repeat="query in queries">
-			<span>{{searches[$index].title}}</span>
+		<div class="queries row">
+		<div class="query col-md-4" ng-repeat="query in queries">
+		<div class="panel panel-info">
+		  <div class="panel-heading">{{searches[$index].title}}</div>
+		  <div class="panel-body">
 			<ul class="questions">
 			<li class="question" ng-repeat="item in query">
 				<a href="{{item.link}}">{{item.title}}</a>
-				<ul class="tags">
+				<ul class="tags pull-right">
 					<li class="tag" ng-repeat="tag in item.tags">
-						{{tag}}
+						<span class="label label-primary">{{tag}}</span>
 					</li>
 				</ul>
 			</li>
 			</ul>
+		  </div>
+		</div>
+
+			
 		</div>
 		</div>
 		

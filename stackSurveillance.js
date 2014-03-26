@@ -9,8 +9,11 @@ function stackSurveillance($scope, $http, $interval) {
 	, 
 	{"title":"log4net",
 	"search":"https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=25&order=desc&sort=creation&closed=False&tagged=log4net&site=stackoverflow"}
-	, {"title":"automapper",
+	
+	, 
+	{"title":"automapper",
 	"search":"https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=25&order=desc&sort=creation&closed=False&tagged=automapper&site=stackoverflow"}
+
 	];
 
 	$scope.queries = [];
@@ -24,8 +27,9 @@ function stackSurveillance($scope, $http, $interval) {
 	
 	$scope.refresh = function() {
 		$scope.queries = [];
-				for (var i = 0; i < $scope.searches.length -1; i++)
+				for (var i = 0; i < $scope.searches.length; i++)
 				{
+				console.log("Working on search #"  + (i+1));
 					$http.get($scope.searches[i].search).
 					success(function(data) {
 						$scope.queries.push(data.items);
@@ -44,5 +48,6 @@ function stackSurveillance($scope, $http, $interval) {
 $scope.stop();
 });
 
+$scope.refresh();
 
 }

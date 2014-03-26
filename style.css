@@ -1,13 +1,11 @@
-div.queries
-{
-	background: #eee;
+body { url("../images/lightpaperfibers.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
-div.query
-{
-	width: 33%;
-	float: left;
-	padding: 5px;
+
+div.query .panel-body {
+max-height: 300px;
+overflow-y: scroll;
+overflw-x: none;
 }
 
 div.query span
@@ -15,7 +13,7 @@ div.query span
 	font-weight: bolder;
 }
 
-div.query ul.questions
+div.query ul.questions, div.query ul.tags
 {
 	list-style-type: none;
 	padding: 0;
@@ -24,20 +22,17 @@ div.query ul.questions
 
 div.query ul.questions li.question
 {
-	margin-top: 10px;
+	padding: 10px 0px;
 	clear: both;
-	border: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+	margin-top: 20px;
 }
 
-div.query ul.tags
-{
-	font-size: 10px;
-}
 
 div.query ul.tags li.tag
 {
 	float: right;
 	padding: 1px;
-	background: #333;
-	color: #eee;
+	display: inline-block;
+	margin-left: 3px;
 }
