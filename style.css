@@ -1,16 +1,15 @@
-body { url("../images/lightpaperfibers.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+body {
+background: url("./images/lightpaperfibers.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
+div.query .panel-heading span{
+cursor: pointer;
+}
 
 div.query .panel-body {
 max-height: 300px;
 overflow-y: scroll;
 overflw-x: none;
-}
-
-div.query span
-{
-	font-weight: bolder;
 }
 
 div.query ul.questions, div.query ul.tags
@@ -38,22 +37,81 @@ div.query ul.tags li.tag
 }
 
 
-div#newQuery {
-padding: 10px;
+div#management {
+padding: 15px 10px 10px 15px;
 position: fixed;
-left: 0px;
-top: 0px;
+left: -5px;
+top: -5px;
 z-index: 1000;
-<<<<<<< HEAD
 max-width: 600px;
-=======
->>>>>>> f5e65e094624500e7151daaf1695b80768a5dfec
 }
 
-div#newQuery form {
+div#management form {
 min-width: 500px;
-<<<<<<< HEAD
+max-width: 600px;
 }
-=======
+
+div#management form textarea{
+max-width: 570px;
 }
->>>>>>> f5e65e094624500e7151daaf1695b80768a5dfec
+
+/* animation */
+
+
+/*div#commands.ng-hide-add,
+div#commands.ng-hide-remove {*/
+  /* remember to add this */
+/* display:block!important;
+  opacity:1;
+}
+
+div#commands.ng-hide-add
+{
+animation: slideOutUp 0.5s;
+}
+
+div#commands.ng-hide-remove
+{
+animation: slideInUp 0.5s;
+}*/
+
+div#management form.ng-hide-add
+{
+animation: slideOutLeft 0.5s;
+}
+
+div#management form.ng-hide-remove
+{
+animation: slideInLeft 0.5s;
+}
+
+div#management form.ng-hide-add,
+div#management form.ng-hide-remove {
+  /* remember to add this */
+  display:block!important;
+  opacity:1;
+}
+
+
+
+/*.question.ng-enter, 
+.question.ng-leave, 
+.question.ng-move {
+}*/
+
+.question.ng-enter {
+animation: slideInRight 1s;
+}
+.question.ng-enter.ng-enter-active {
+
+}
+
+/*.question.ng-leave.ng-leave-active {
+animation: slideOutLeft 1s;
+}*/
+
+.question.ng-leave {
+animation: slideOutLeft 1s;
+}
+
+

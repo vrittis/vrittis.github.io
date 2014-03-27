@@ -2,13 +2,15 @@
 <html ng-app="surveillance">
 	<head>
 		<title>Stack surveillance</title>
-		<script src="angular.min.js"></script>
+		<script src="angular.js"></script>
+		<script src="angular-animate.js"></script>
 		<script src="cookies.js"></script>
 		<script src="ui-bootstrap-tpls-0.10.0.js"></script>
 		<script src="angularLocalStorage.js"></script>
     	<script src="stackSurveillance.js"></script>
 		<link rel="stylesheet" href="style.css" type="text/css"></link>
 		<link rel="stylesheet" href="bootstrap.css" type="text/css"></link>
+		<link rel="stylesheet" href="animate.css" type="text/css"></link>
 	</head>
 
 	<body>
@@ -24,19 +26,15 @@
     </header>
 		<div ng-controller="StackOverflow" class="container-fluid">
 		
-		<div id="newQuery" class="panel">
+		<div id="management" class="panel panel-primary">
 		
-<<<<<<< HEAD
-			<div class="btn-group input-group-btn" ng-hide="saving">
+			<div id="commands" class="btn-group input-group-btn" ng-hide="saving || raw">
 				<button class="btn btn-primary" ng-click="saving = true;"><i class="glyphicon glyphicon-plus"></i> Add new search</button>
-				<downloadQueries id="export" get-data="retrieveQueries()" />
-				<button class="btn btn-default">Export</button>
-				<button class="btn btn-default">Import</button>
+				<button class="btn btn-default" ng-click="raw = true; prepareRaw()"><i class="glyphicon glyphicon-cog"></i> Manage raw data</button>
 			</div>
-=======
-			<button ng-hide="saving" class="btn btn-primary" ng-click="saving = true;"><i class="glyphicon glyphicon-plus"></i> Add new search to check</button>
->>>>>>> f5e65e094624500e7151daaf1695b80768a5dfec
+
 			<form ng-show="saving" ng-submit="saving = false; add()">
+				<h3>Watch some other things...</h3>
 				<input type="text" class="form-control" ng-model="newQueryTitle" placeholder="Title" ng-required/>
 				<textarea class="form-control" ng-model="newQuerySearch" placeholder="SO Search url" ng-required ></textarea>
 				<p><a href="https://api.stackexchange.com/docs/advanced-search" target="blank">Create your search url</a></p>
@@ -46,36 +44,44 @@
 				</div>
 			</form>
 		
+			<form ng-show="raw" ng-submit="raw = false; loadRaw()">
+				<h3>Copy/Paste your current configuration</h3>
+				<textarea class="form-control" ng-model="stringifiedQueries" ng-required></textarea>
+				<div class="btn-group pull-right">
+				<button class="btn btn-primary" type="submit">Update</button>
+				<a class="btn btn-default" ng-click="raw = false">cancel</a>
+				</div>
+			</form>
 		</div>
 		
 		<div class="queries row">
 		<div class="query col-md-4" ng-repeat="query in queries">
 		<div class="panel panel-info">
 		  <div class="panel-heading">
-			<span ng-hide="editing" ng-click="editing = true">{{query.title}}</span>
+			<span ng-hide="editing" ng-click="editing = true"><strong>{{query.title}}</strong></span>
 			<form ng-show="editing" ng-submit="editing = false; refresh(query)">
-				<input type="text" ng-model="query.title" placeholder="Name" ng-required/>
-				<br/>
-				<input type="text" ng-model="query.search" placeholder="Date" ng-required/>
-				<br/>
-				<button class="btn" type="submit">Save</button>
-				<a class="btn" ng-click="editing = false">cancel</a>
+				<input class="form-control" type="text" ng-model="query.title" placeholder="Name" ng-required/>
+				<input class="form-control" type="text" ng-model="query.search" placeholder="Search" ng-required/>
+				<div class="btn-group pull-right ">
+				<button class="btn btn-primary" type="submit">Save</button>
+				<a class="btn btn-default" ng-click="editing = false">cancel</a>
+				</div>
+				<span class="clearfix"></span>
 			   </form>
-			<div class="pull-right" ng-hide="editing">
-			 <span class="input-group-btn btn-group btn-group-xs">
+			<div class="pull-right btn-group btn-group-xs" ng-hide="editing">
                 <button class="btn btn-default" ng-click="refresh(query)"><i class="glyphicon glyphicon-refresh"></i></button>
 				<button class="btn btn-default" ng-click="remove(query)"><i class="glyphicon glyphicon-minus"></i></button>
-              </span>
 			</div>
 		  </div>
 		  <div class="panel-body">
 			<ul class="questions">
-			<li class="question" ng-repeat="item in query.results">
+			<li class="question" ng-repeat="item in items[query.title]">
 				<a href="{{item.link}}" target="blank">{{item.title}}</a>
 				<ul class="tags pull-right">
 					<li class="tag" ng-repeat="tag in item.tags">
 						<span class="label label-primary">{{tag}}</span>
 					</li>
+					<span class="clearfix"></span>
 				</ul>
 			</li>
 			</ul>
