@@ -36,3 +36,17 @@ div.query ul.tags li.tag
 	display: inline-block;
 	margin-left: 3px;
 }
+
+
+div#newQuery {
+padding: 10px;
+position: fixed;
+left: 0px;
+top: 0px;
+z-index: 1000;
+max-width: 600px;
+}
+
+div#newQuery form {
+min-width: 500px;
+}

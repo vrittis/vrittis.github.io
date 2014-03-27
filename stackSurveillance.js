@@ -1,53 +1,64 @@
-function stackSurveillance($scope, $http, $interval) {
+var surveillance = angular.module("surveillance", ['ngCookies','angularLocalStorage']);
 
-	$scope.searches = [
-	{"title":"Castle & co",
-	"search":"https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=25&order=desc&sort=creation&closed=False&tagged=castle&site=stackoverflow"}
-	, 
-	{"title":"nsubstitute",
-	"search":"https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=25&order=desc&sort=creation&closed=False&tagged=nsubstitute&site=stackoverflow"}
-	, 
-	{"title":"log4net",
-	"search":"https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=25&order=desc&sort=creation&closed=False&tagged=log4net&site=stackoverflow"}
-	
-	, 
-	{"title":"automapper",
-	"search":"https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=25&order=desc&sort=creation&closed=False&tagged=automapper&site=stackoverflow"}
+surveillance.controller("StackOverflow", function ($scope, $http, $interval, storage) {
 
-	];
-
-	$scope.queries = [];
-	
-	var running;
-	$scope.start = function()	{
-		if (angular.isDefined(running)) return;
-		
-		running = $interval($scope.refresh, 6000);
-	};
-	
-	$scope.refresh = function() {
-		$scope.queries = [];
-				for (var i = 0; i < $scope.searches.length; i++)
-				{
-				console.log("Working on search #"  + (i+1));
-					$http.get($scope.searches[i].search).
-					success(function(data) {
-						$scope.queries.push(data.items);
-					});
+	storage.bind($scope, "queries", {
+	defaultValue:[{
+					"title" : "angularjs is used in this app",
+					"search" : "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=25&order=desc&sort=creation&closed=False&tagged=angularjs&site=stackoverflow"
 				}
-	}
+			]
+	});
 	
-	$scope.stop = function() {
-	if (angular.isDefined(running)) {
-	$interval.cancel(running);
-	running = undefined;
+	$scope.refreshAll = function () {
+		console.log("Refresh all queries");
+		for (var i = 0; i < $scope.queries.length; i++) {
+			$scope.refresh($scope.queries[i]);
+		}
+	};
+
+	$scope.refresh = function (query) {
+		console.log("Refresh " + query.title);
+		query.results = [];
+		$http.get(query.search).
+		success(function (data) {
+			query.results = data.items;
+		});
 	}
+
+	$scope.add = function () {
+		var query = {"title":$scope.newQueryTitle, "search":$scope.newQuerySearch};
+		$scope.queries.push(query);
+		$scope.refresh(query);
+	};
+
+	$scope.remove = function (query) {
+		var index = $scope.queries.indexOf(query);
+		if (index > -1) {
+			$scope.queries.splice(index, 1);
+		}
+	};
+
+	$scope.retrieveQueries = function() {
+		return new Blob(JSON.stringify($scope.queries), {type: "application/json"});
 	};
 	
-	 $scope.$on('$destroy', function() {
-$scope.stop();
+	$scope.refreshAll();
+
 });
 
-$scope.refresh();
-
-}
+surveillance.directive('downloadQueries', function ($compile) {
+    return {
+        restrict:'E',
+        scope:{ getUrlData:'&getData'},
+        link:function (scope, elm, attrs) {
+            var url = URL.createObjectURL(scope.getUrlData());
+            elm.append($compile(
+                '<a class="btn" download="backup.json"' +
+                    'href="' + url + '">' +
+                    'Export settings' +
+                    '</a>'
+            )(scope));
+        }
+    };
+});
