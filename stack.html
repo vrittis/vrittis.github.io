@@ -7,6 +7,8 @@
 		<script src="cookies.js"></script>
 		<script src="ui-bootstrap-tpls-0.10.0.js"></script>
 		<script src="angularLocalStorage.js"></script>
+		<script src="angular-moment.min.js"></script>
+		<script src="moment.min.js"></script>
     	<script src="stackSurveillance.js"></script>
 		<link rel="stylesheet" href="style.css" type="text/css"></link>
 		<link rel="stylesheet" href="bootstrap.css" type="text/css"></link>
@@ -31,6 +33,7 @@
 			<div id="commands" class="btn-group input-group-btn" ng-hide="saving || raw">
 				<button class="btn btn-primary" ng-click="saving = true;"><i class="glyphicon glyphicon-plus"></i> Add new search</button>
 				<button class="btn btn-default" ng-click="raw = true; prepareRaw()"><i class="glyphicon glyphicon-cog"></i> Manage raw data</button>
+				<button class="btn btn-default" ng-click="refreshAll()"><i class="glyphicon glyphicon-refresh"></i> Refresh all</button>
 			</div>
 
 			<form ng-show="saving" ng-submit="saving = false; add()">
@@ -76,13 +79,22 @@
 		  <div class="panel-body">
 			<ul class="questions">
 			<li class="question" ng-repeat="item in items[query.title]">
-				<a href="{{item.link}}" target="blank">{{item.title}}</a>
+				<p>
+				<span class="label label-danger" ng-show="item.is_answered"><span class="glyphicon glyphicon-ok"></span></span> 
+				<span class="label label-success"><span class="glyphicon glyphicon-thumbs-up"></span> {{item.score}}</span> 
+				<span class="label label-warning"><span class="glyphicon glyphicon-user"></span> {{item.answer_count}}</span> 
+				<a href="{{item.link}}" target="blank">{{item.title}}</a></p>
+				<div>
+				<a href="{{item.owner.link}}" target="blank"><img src="{{item.owner.profile_image}}" height="32px"/> {{item.owner.display_name}}</a>
+				<!--<span am-time-ago="item.creation_date"></span>-->
+				
 				<ul class="tags pull-right">
 					<li class="tag" ng-repeat="tag in item.tags">
 						<span class="label label-primary">{{tag}}</span>
 					</li>
 					<span class="clearfix"></span>
 				</ul>
+				</div>
 			</li>
 			</ul>
 		  </div>
