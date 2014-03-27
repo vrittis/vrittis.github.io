@@ -62,7 +62,7 @@
 		  <div class="panel-body">
 			<ul class="questions">
 			<li class="question" ng-repeat="item in query.results">
-				<a href="{{item.link}}">{{item.title}}</a>
+				<a href="{{item.link}}" target="blank">{{item.title}}</a>
 				<ul class="tags pull-right">
 					<li class="tag" ng-repeat="tag in item.tags">
 						<span class="label label-primary">{{tag}}</span>
