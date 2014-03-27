@@ -26,12 +26,16 @@
 		
 		<div id="newQuery" class="panel">
 		
+<<<<<<< HEAD
 			<div class="btn-group input-group-btn" ng-hide="saving">
 				<button class="btn btn-primary" ng-click="saving = true;"><i class="glyphicon glyphicon-plus"></i> Add new search</button>
 				<downloadQueries id="export" get-data="retrieveQueries()" />
 				<button class="btn btn-default">Export</button>
 				<button class="btn btn-default">Import</button>
 			</div>
+=======
+			<button ng-hide="saving" class="btn btn-primary" ng-click="saving = true;"><i class="glyphicon glyphicon-plus"></i> Add new search to check</button>
+>>>>>>> f5e65e094624500e7151daaf1695b80768a5dfec
 			<form ng-show="saving" ng-submit="saving = false; add()">
 				<input type="text" class="form-control" ng-model="newQueryTitle" placeholder="Title" ng-required/>
 				<textarea class="form-control" ng-model="newQuerySearch" placeholder="SO Search url" ng-required ></textarea>

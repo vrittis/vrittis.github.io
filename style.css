@@ -44,9 +44,16 @@ position: fixed;
 left: 0px;
 top: 0px;
 z-index: 1000;
+<<<<<<< HEAD
 max-width: 600px;
+=======
+>>>>>>> f5e65e094624500e7151daaf1695b80768a5dfec
 }
 
 div#newQuery form {
 min-width: 500px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f5e65e094624500e7151daaf1695b80768a5dfec

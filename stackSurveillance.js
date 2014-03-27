@@ -30,6 +30,7 @@ surveillance.controller("StackOverflow", function ($scope, $http, $interval, sto
 		var query = {"title":$scope.newQueryTitle, "search":$scope.newQuerySearch};
 		$scope.queries.push(query);
 		$scope.refresh(query);
+<<<<<<< HEAD
 	};
 
 	$scope.remove = function (query) {
@@ -61,4 +62,17 @@ surveillance.directive('downloadQueries', function ($compile) {
             )(scope));
         }
     };
+=======
+	};
+
+	$scope.remove = function (query) {
+		var index = $scope.queries.indexOf(query);
+		if (index > -1) {
+			$scope.queries.splice(index, 1);
+		}
+	};
+
+	$scope.refreshAll();
+
+>>>>>>> f5e65e094624500e7151daaf1695b80768a5dfec
 });
