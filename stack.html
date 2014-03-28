@@ -7,8 +7,6 @@
 		<script src="cookies.js"></script>
 		<script src="ui-bootstrap-tpls-0.10.0.js"></script>
 		<script src="angularLocalStorage.js"></script>
-		<script src="angular-moment.min.js"></script>
-		<script src="moment.min.js"></script>
     	<script src="stackSurveillance.js"></script>
 		<link rel="stylesheet" href="style.css" type="text/css"></link>
 		<link rel="stylesheet" href="bootstrap.css" type="text/css"></link>
@@ -86,7 +84,6 @@
 				<a href="{{item.link}}" target="blank">{{item.title}}</a></p>
 				<div>
 				<a href="{{item.owner.link}}" target="blank"><img src="{{item.owner.profile_image}}" height="32px"/> {{item.owner.display_name}}</a>
-				<!--<span am-time-ago="item.creation_date"></span>-->
 				
 				<ul class="tags pull-right">
 					<li class="tag" ng-repeat="tag in item.tags">

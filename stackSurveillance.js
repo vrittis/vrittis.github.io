@@ -1,4 +1,4 @@
-var surveillance = angular.module("surveillance", ['ngAnimate','ngCookies','angularLocalStorage','angularMoment']);
+var surveillance = angular.module("surveillance", ['ngAnimate','ngCookies','angularLocalStorage']);
 
 surveillance.controller("StackOverflow", function ($scope, $http, $interval, storage) {
 
